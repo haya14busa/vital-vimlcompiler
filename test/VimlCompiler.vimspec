@@ -117,37 +117,73 @@ Describe VimlCompiler
 
   Describe .compile_greater
     It compile greater
-      Assert Equals(Recompile('true > false'), '(true > false)')
+      Assert Equals(Recompile('true < false'), '(true > false)')
     End
   End
 
   Describe .compile_greaterci
     It compile greaterci
-      Assert Equals(Recompile('true >? false'), '(true >? false)')
+      Assert Equals(Recompile('true <? false'), '(true >? false)')
     End
   End
 
   Describe .compile_greatercs
     It compile greatercs
-      Assert Equals(Recompile('true ># false'), '(true ># false)')
+      Assert Equals(Recompile('true <# false'), '(true ># false)')
     End
   End
 
   Describe .compile_gequal
     It compile gequal
-      Assert Equals(Recompile('true >= false'), '(true >= false)')
+      Assert Equals(Recompile('true <= false'), '(true >= false)')
     End
   End
 
   Describe .compile_gequalci
     It compile gequalci
-      Assert Equals(Recompile('true >=? false'), '(true >=? false)')
+      Assert Equals(Recompile('true <=? false'), '(true >=? false)')
     End
   End
 
   Describe .compile_gequalcs
     It compile gequalcs
-      Assert Equals(Recompile('true >=# false'), '(true >=# false)')
+      Assert Equals(Recompile('true <=# false'), '(true >=# false)')
+    End
+  End
+
+  Describe .compile_smaller
+    It compile smaller
+      Assert Equals(Recompile('true < false'), '(true < false)')
+    End
+  End
+
+  Describe .compile_smallerci
+    It compile smallerci
+      Assert Equals(Recompile('true <? false'), '(true <? false)')
+    End
+  End
+
+  Describe .compile_smallercs
+    It compile smallercs
+      Assert Equals(Recompile('true <# false'), '(true <# false)')
+    End
+  End
+
+  Describe .compile_sequal
+    It compile sequal
+      Assert Equals(Recompile('true <= false'), '(true <= false)')
+    End
+  End
+
+  Describe .compile_sequalci
+    It compile sequalci
+      Assert Equals(Recompile('true <=? false'), '(true <=? false)')
+    End
+  End
+
+  Describe .compile_sequalcs
+    It compile sequalcs
+      Assert Equals(Recompile('true <=# false'), '(true <=# false)')
     End
   End
 
