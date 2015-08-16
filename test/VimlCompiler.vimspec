@@ -1,0 +1,31 @@
+Describe VimlCompiler
+
+  Before all
+    let s:V = vital#of('vital')
+    let s:VimlParser = s:V.import('Vim.VimlParser').import()
+    let s:VimlCompiler = s:V.import('Vim.VimlCompiler').import()
+
+    function! s:parse(expr) abort
+      let r = s:VimlParser.StringReader.new(a:expr)
+      let ep = s:VimlParser.ExprParser.new(r)
+      return ep.parse()
+    endfunction
+
+    function! s:compile(node) abort
+      let c = s:VimlCompiler.new()
+      return c.compile(a:node)
+    endfunction
+
+    function! Recompile(expr) abort
+      return s:compile(s:parse(a:expr))
+    endfunction
+
+  End
+
+  Describe .compile_ternary
+    It compile ternay
+      Assert Equals(Recompile('cond ? true : false'), '(cond ? true : false)')
+    End
+  End
+
+End
