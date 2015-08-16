@@ -90,18 +90,18 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_nequalci(a:node)
   elseif a:node.type == s:NODE_NEQUALCS
     return self.compile_nequalcs(a:node)
-  " elseif a:node.type == s:NODE_GREATER
-  "   return self.compile_greater(a:node)
-  " elseif a:node.type == s:NODE_GREATERCI
-  "   return self.compile_greaterci(a:node)
-  " elseif a:node.type == s:NODE_GREATERCS
-  "   return self.compile_greatercs(a:node)
-  " elseif a:node.type == s:NODE_GEQUAL
-  "   return self.compile_gequal(a:node)
-  " elseif a:node.type == s:NODE_GEQUALCI
-  "   return self.compile_gequalci(a:node)
-  " elseif a:node.type == s:NODE_GEQUALCS
-  "   return self.compile_gequalcs(a:node)
+  elseif a:node.type == s:NODE_GREATER
+    return self.compile_greater(a:node)
+  elseif a:node.type == s:NODE_GREATERCI
+    return self.compile_greaterci(a:node)
+  elseif a:node.type == s:NODE_GREATERCS
+    return self.compile_greatercs(a:node)
+  elseif a:node.type == s:NODE_GEQUAL
+    return self.compile_gequal(a:node)
+  elseif a:node.type == s:NODE_GEQUALCI
+    return self.compile_gequalci(a:node)
+  elseif a:node.type == s:NODE_GEQUALCS
+    return self.compile_gequalcs(a:node)
   " elseif a:node.type == s:NODE_SMALLER
   "   return self.compile_smaller(a:node)
   " elseif a:node.type == s:NODE_SMALLERCI
@@ -225,6 +225,30 @@ endfunction
 
 function! s:VimlCompiler.compile_nequalcs(node)
   return printf('(%s !=# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_greater(node)
+  return printf('(%s > %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_greaterci(node)
+  return printf('(%s >? %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_greatercs(node)
+  return printf('(%s ># %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_gequal(node)
+  return printf('(%s >= %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_gequalci(node)
+  return printf('(%s >=? %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_gequalcs(node)
+  return printf('(%s >=# %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
 function! s:VimlCompiler.compile_number(node)
