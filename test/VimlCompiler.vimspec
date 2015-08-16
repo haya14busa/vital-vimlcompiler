@@ -36,6 +36,21 @@ Describe VimlCompiler
     It compile or
       Assert Equals(Recompile('true || false'), '(true || false)')
     End
+
+    It eval or expression
+      Assert Equals(eval(Recompile('0 || 0')), 0)
+      Assert Equals(eval(Recompile('0 || 1')), 1)
+      Assert Equals(eval(Recompile('1 || 0')), 1)
+      Assert Equals(eval(Recompile('1 || 1')), 1)
+    End
+  End
+
+  Describe .compile_number
+    It compile number
+      for i in range(0, 100)
+        Assert Equals(Recompile(string(i)), string(i))
+      endfor
+    End
   End
 
 End

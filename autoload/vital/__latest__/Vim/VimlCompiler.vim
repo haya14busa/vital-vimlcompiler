@@ -164,8 +164,8 @@ function! s:VimlCompiler.compile(node) abort
   "   return self.compile_dot(a:node)
   " elseif a:node.type == s:NODE_CALL
   "   return self.compile_call(a:node)
-  " elseif a:node.type == s:NODE_NUMBER
-  "   return self.compile_number(a:node)
+  elseif a:node.type == s:NODE_NUMBER
+    return self.compile_number(a:node)
   " elseif a:node.type == s:NODE_STRING
   "   return self.compile_string(a:node)
   " elseif a:node.type == s:NODE_LIST
@@ -197,6 +197,10 @@ endfunction
 
 function! s:VimlCompiler.compile_or(node)
   return printf('(%s || %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_number(node)
+  return a:node.value
 endfunction
 
 let &cpo = s:save_cpo
