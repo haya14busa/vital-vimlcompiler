@@ -151,12 +151,12 @@ function! s:VimlCompiler.compile(node) abort
   elseif a:node.type == s:NODE_REMAINDER
     return self.compile_remainder(a:node)
   elseif a:node.type == s:NODE_NOT
-  "   return self.compile_not(a:node)
-  " elseif a:node.type == s:NODE_PLUS
-  "   return self.compile_plus(a:node)
-  " elseif a:node.type == s:NODE_MINUS
-  "   return self.compile_minus(a:node)
-  " elseif a:node.type == s:NODE_SUBSCRIPT
+    return self.compile_not(a:node)
+  elseif a:node.type == s:NODE_PLUS
+    return self.compile_plus(a:node)
+  elseif a:node.type == s:NODE_MINUS
+    return self.compile_minus(a:node)
+  elseif a:node.type == s:NODE_SUBSCRIPT
   "   return self.compile_subscript(a:node)
   " elseif a:node.type == s:NODE_SLICE
   "   return self.compile_slice(a:node)
@@ -347,6 +347,17 @@ function! s:VimlCompiler.compile_remainder(node)
   return printf('(%s %% %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
+function! s:VimlCompiler.compile_not(node)
+  return printf('(! %s)', self.compile(a:node.left))
+endfunction
+
+function! s:VimlCompiler.compile_plus(node)
+  return printf('(+ %s)', self.compile(a:node.left))
+endfunction
+
+function! s:VimlCompiler.compile_minus(node)
+  return printf('(- %s)', self.compile(a:node.left))
+endfunction
 
 function! s:VimlCompiler.compile_number(node)
   return a:node.value
