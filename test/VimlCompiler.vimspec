@@ -32,4 +32,10 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_or
+    It compile or
+      Assert Equals(Recompile('true || false'), '(true || false)')
+    End
+  End
+
 End

@@ -74,8 +74,8 @@ function! s:VimlCompiler.compile(node) abort
   "   return self.compile_execute(a:node)
   elseif a:node.type == s:NODE_TERNARY
     return self.compile_ternary(a:node)
-  " elseif a:node.type == s:NODE_OR
-  "   return self.compile_or(a:node)
+  elseif a:node.type == s:NODE_OR
+    return self.compile_or(a:node)
   " elseif a:node.type == s:NODE_AND
   "   return self.compile_and(a:node)
   " elseif a:node.type == s:NODE_EQUAL
@@ -193,6 +193,10 @@ endfunction
 
 function! s:VimlCompiler.compile_ternary(node) abort
   return printf('(%s ? %s : %s)', self.compile(a:node.cond), self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_or(node)
+  return printf('(%s || %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
 let &cpo = s:save_cpo
