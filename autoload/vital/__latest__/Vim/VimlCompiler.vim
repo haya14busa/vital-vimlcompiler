@@ -162,8 +162,8 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_slice(a:node)
   elseif a:node.type == s:NODE_DOT
     return self.compile_dot(a:node)
-  " elseif a:node.type == s:NODE_CALL
-  "   return self.compile_call(a:node)
+  elseif a:node.type == s:NODE_CALL
+    return self.compile_call(a:node)
   elseif a:node.type == s:NODE_NUMBER
     return self.compile_number(a:node)
   elseif a:node.type == s:NODE_STRING
@@ -371,6 +371,11 @@ endfunction
 
 function! s:VimlCompiler.compile_dot(node)
   return printf('(%s.%s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_call(node)
+  let rlist = map(a:node.rlist, 'self.compile(v:val)')
+  return printf('(%s(%s))', self.compile(a:node.left), join(rlist, ', '))
 endfunction
 
 function! s:VimlCompiler.compile_number(node)
