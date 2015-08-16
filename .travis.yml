@@ -39,6 +39,6 @@ script:
   - which -a vim
   - vim --cmd version --cmd quit
   - if [ -e doc/ ]; then vim --cmd 'try | helptags doc/ | catch | cquit | endtry' --cmd 'quit'; fi
-  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -e EVL103=1 -e EVL102.l:_=1 -c func_abort=1 autoload
-  # - vint --color .
+  - sh /tmp/vim-vimlint/bin/vimlint.sh -l /tmp/vim-vimlint -p /tmp/vim-vimlparser -e EVL103=1 -e EVL102.l:_=1 -c func_abort=1 ./autoload/vital/__latest__/Vim/VimlCompiler.vim
+  # - vint --color ./autoload/vital/__latest__/Vim/VimlCompiler.vim
   - /tmp/vim-themis/bin/themis --runtimepath /tmp/vital.vim --reporter spec
