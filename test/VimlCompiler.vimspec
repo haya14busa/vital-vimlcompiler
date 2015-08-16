@@ -104,8 +104,14 @@ Describe VimlCompiler
   End
 
   Describe .compile_nequalci
-    It compile nequal
+    It compile nequalci
       Assert Equals(Recompile('true !=? false'), '(true !=? false)')
+    End
+  End
+
+  Describe .compile_nequalcs
+    It compile nequalcs
+      Assert Equals(Recompile('true !=# false'), '(true !=# false)')
     End
   End
 
