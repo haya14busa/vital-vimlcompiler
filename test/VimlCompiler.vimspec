@@ -259,6 +259,48 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_add
+    It compile +
+      Assert Equals(Recompile('1 + 1'), '(1 + 1)')
+      Assert Equals(eval(Recompile('1 + 1')), 2)
+    End
+  End
+
+  Describe .compile_subtract
+    It compile -
+      Assert Equals(Recompile('1 - 1'), '(1 - 1)')
+      Assert Equals(eval(Recompile('1 - 1')), 0)
+    End
+  End
+
+  Describe .compile_concat
+    It compile . (concat)
+      Assert Equals(Recompile('1 . 1'), '(1 . 1)')
+      Assert Equals(eval(Recompile('1 . 1')), '11')
+    End
+  End
+
+  Describe .compile_multiply
+    It compile *
+      Assert Equals(Recompile('1 * 1'), '(1 * 1)')
+      Assert Equals(eval(Recompile('1 * 1')), 1)
+    End
+  End
+
+  Describe .compile_divide
+    It compile /
+      Assert Equals(Recompile('1 / 1'), '(1 / 1)')
+      Assert Equals(eval(Recompile('1 / 1')), 1)
+    End
+  End
+
+  Describe .compile_reminder
+    It compile %
+      Assert Equals(Recompile('1 % 1'), '(1 % 1)')
+      Assert Equals(eval(Recompile('1 % 1')), 0)
+    End
+  End
+
   Describe .compile_number
     It compile number
       for i in range(0, 100)

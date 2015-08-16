@@ -139,18 +139,18 @@ function! s:VimlCompiler.compile(node) abort
   elseif a:node.type == s:NODE_ISNOTCS
     return self.compile_isnotcs(a:node)
   elseif a:node.type == s:NODE_ADD
-  "   return self.compile_add(a:node)
-  " elseif a:node.type == s:NODE_SUBTRACT
-  "   return self.compile_subtract(a:node)
-  " elseif a:node.type == s:NODE_CONCAT
-  "   return self.compile_concat(a:node)
-  " elseif a:node.type == s:NODE_MULTIPLY
-  "   return self.compile_multiply(a:node)
-  " elseif a:node.type == s:NODE_DIVIDE
-  "   return self.compile_divide(a:node)
-  " elseif a:node.type == s:NODE_REMAINDER
-  "   return self.compile_remainder(a:node)
-  " elseif a:node.type == s:NODE_NOT
+    return self.compile_add(a:node)
+  elseif a:node.type == s:NODE_SUBTRACT
+    return self.compile_subtract(a:node)
+  elseif a:node.type == s:NODE_CONCAT
+    return self.compile_concat(a:node)
+  elseif a:node.type == s:NODE_MULTIPLY
+    return self.compile_multiply(a:node)
+  elseif a:node.type == s:NODE_DIVIDE
+    return self.compile_divide(a:node)
+  elseif a:node.type == s:NODE_REMAINDER
+    return self.compile_remainder(a:node)
+  elseif a:node.type == s:NODE_NOT
   "   return self.compile_not(a:node)
   " elseif a:node.type == s:NODE_PLUS
   "   return self.compile_plus(a:node)
@@ -321,6 +321,30 @@ endfunction
 
 function! s:VimlCompiler.compile_isnotcs(node)
   return printf('(%s isnot# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_add(node)
+  return printf('(%s + %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_subtract(node)
+  return printf('(%s - %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_concat(node)
+  return printf('(%s . %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_multiply(node)
+  return printf('(%s * %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_divide(node)
+  return printf('(%s / %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_remainder(node)
+  return printf('(%s %% %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
 
