@@ -97,6 +97,12 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_nequal
+    It compile nequal
+      Assert Equals(Recompile('true != false'), '(true != false)')
+    End
+  End
+
   Describe .compile_number
     It compile number
       for i in range(0, 100)

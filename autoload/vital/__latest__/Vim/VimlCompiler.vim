@@ -84,8 +84,8 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_equalci(a:node)
   elseif a:node.type == s:NODE_EQUALCS
     return self.compile_equalcs(a:node)
-  " elseif a:node.type == s:NODE_NEQUAL
-  "   return self.compile_nequal(a:node)
+  elseif a:node.type == s:NODE_NEQUAL
+    return self.compile_nequal(a:node)
   " elseif a:node.type == s:NODE_NEQUALCI
   "   return self.compile_nequalci(a:node)
   " elseif a:node.type == s:NODE_NEQUALCS
@@ -213,6 +213,10 @@ endfunction
 
 function! s:VimlCompiler.compile_equalcs(node)
   return printf('(%s ==# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_nequal(node)
+  return printf('(%s != %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
 function! s:VimlCompiler.compile_number(node)
