@@ -346,6 +346,11 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_dot
+    It compile .
+      Assert Equals(Recompile('x.y'), '(x.y)')
+    End
+  End
 
   Describe .compile_number
     It compile number
@@ -355,12 +360,27 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_string
+    It compile string
+      Assert Equals(Recompile('string'), 'string')
+    End
+  End
+
   Describe .compile_list
     It compile list
       Assert Equals(Recompile('[1, 2, 3]'), '([1, 2, 3])')
       for i in range(0, 10)
         Assert Equals(eval(Recompile(string(range(i)))), range(i))
       endfor
+    End
+  End
+
+  Describe .compile_dict
+    It compile dict
+      Assert Equals(Recompile('{x : y}'), '({x : y})')
+      Assert Equals(Recompile('{x : y, z : a}'), '({x : y , z : a})')
+      let d = {1 : 10, 2 : 20}
+      Assert Equals(eval(Recompile(string(d))), d)
     End
   End
 

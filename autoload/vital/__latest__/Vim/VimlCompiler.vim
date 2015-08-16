@@ -160,18 +160,18 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_subscript(a:node)
   elseif a:node.type == s:NODE_SLICE
     return self.compile_slice(a:node)
-  " elseif a:node.type == s:NODE_DOT
-  "   return self.compile_dot(a:node)
+  elseif a:node.type == s:NODE_DOT
+    return self.compile_dot(a:node)
   " elseif a:node.type == s:NODE_CALL
   "   return self.compile_call(a:node)
   elseif a:node.type == s:NODE_NUMBER
     return self.compile_number(a:node)
-  " elseif a:node.type == s:NODE_STRING
-  "   return self.compile_string(a:node)
+  elseif a:node.type == s:NODE_STRING
+    return self.compile_string(a:node)
   elseif a:node.type == s:NODE_LIST
     return self.compile_list(a:node)
-  " elseif a:node.type == s:NODE_DICT
-  "   return self.compile_dict(a:node)
+  elseif a:node.type == s:NODE_DICT
+    return self.compile_dict(a:node)
   " elseif a:node.type == s:NODE_OPTION
   "   return self.compile_option(a:node)
   elseif a:node.type == s:NODE_IDENTIFIER
@@ -369,7 +369,15 @@ function! s:VimlCompiler.compile_slice(node)
   return printf('(%s[%s : %s])', self.compile(a:node.left), r0, r1)
 endfunction
 
+function! s:VimlCompiler.compile_dot(node)
+  return printf('(%s.%s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
 function! s:VimlCompiler.compile_number(node)
+  return a:node.value
+endfunction
+
+function! s:VimlCompiler.compile_string(node)
   return a:node.value
 endfunction
 
@@ -381,6 +389,16 @@ function! s:VimlCompiler.compile_list(node)
     return printf('([%s])', join(value, ', '))
   endif
 endfunction
+
+function! s:VimlCompiler.compile_dict(node)
+  let value = map(a:node.value, 'self.compile(v:val[0]) . " : " . self.compile(v:val[1])')
+  if empty(value)
+    return '({})'
+  else
+    return printf('({%s})', join(value, ' , '))
+  endif
+endfunction
+
 
 let &cpo = s:save_cpo
 unlet s:save_cpo
