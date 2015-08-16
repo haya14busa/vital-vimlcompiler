@@ -400,6 +400,14 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_curlyname
+    It compile {x} XXX: is this a appropriate spec?
+      " XXX
+      Assert Equals(Recompile('{x}'), '{x}')
+      Assert Equals(Recompile('my_{ad{end_of_word}}_message'), 'my_{ad{end_of_word}}_message')
+    End
+  End
+
   Describe .compile_env
     It compile $ENV
       Assert Equals(Recompile('$MYVIMRC'), '$MYVIMRC')
@@ -413,5 +421,20 @@ Describe VimlCompiler
       Assert Equals(eval(Recompile('@a')), @a)
     End
   End
+
+  Describe .compile_curlynamepart
+    It compile xxx{x}
+      Assert Equals(Recompile('xxx{x}'), 'xxx{x}')
+    End
+  End
+
+  Describe .compile_curlynameexpr
+    It compile {x}
+      let x = 'xxx'
+      Assert Equals(Recompile('{x}'), '{x}')
+      Assert Equals(eval(Recompile('{"x"}')), x)
+    End
+  End
+
 
 End

@@ -176,16 +176,16 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_option(a:node)
   elseif a:node.type == s:NODE_IDENTIFIER
     return self.compile_identifier(a:node)
-  " elseif a:node.type == s:NODE_CURLYNAME
-  "   return self.compile_curlyname(a:node)
+  elseif a:node.type == s:NODE_CURLYNAME
+    return self.compile_curlyname(a:node)
   elseif a:node.type == s:NODE_ENV
     return self.compile_env(a:node)
   elseif a:node.type == s:NODE_REG
     return self.compile_reg(a:node)
-  " elseif a:node.type == s:NODE_CURLYNAMEPART
-  "   return self.compile_curlynamepart(a:node)
-  " elseif a:node.type == s:NODE_CURLYNAMEEXPR
-  "   return self.compile_curlynameexpr(a:node)
+  elseif a:node.type == s:NODE_CURLYNAMEPART
+    return self.compile_curlynamepart(a:node)
+  elseif a:node.type == s:NODE_CURLYNAMEEXPR
+    return self.compile_curlynameexpr(a:node)
   else
     throw printf('VimlCompiler: unknown node: %s', string(a:node))
   endif
@@ -414,6 +414,14 @@ endfunction
 
 function! s:VimlCompiler.compile_reg(node)
   return a:node.value
+endfunction
+
+function! s:VimlCompiler.compile_curlynamepart(node)
+  return a:node.value
+endfunction
+
+function! s:VimlCompiler.compile_curlynameexpr(node)
+  return '{' . self.compile(a:node.value) . '}'
 endfunction
 
 let &cpo = s:save_cpo
