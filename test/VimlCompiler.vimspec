@@ -329,6 +329,24 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_slice
+    It compile slice
+      Assert Equals(Recompile('x[1:1]'), '(x[1 : 1])')
+      Assert Equals(Recompile('x[1:]'), '(x[1 : ])')
+      Assert Equals(Recompile('x[: 1]'), '(x[ : 1])')
+      Assert Equals(Recompile('x[:]'), '(x[ : ])')
+    End
+
+    It eval slice
+      let x = [1, 2, 3]
+      Assert Equals(eval(Recompile('x[1:2]')), x[1:2])
+      Assert Equals(eval(Recompile('x[1:]')), x[1:])
+      Assert Equals(eval(Recompile('x[: 1]')), x[:1])
+      Assert Equals(eval(Recompile('x[:]')), x[:])
+    End
+  End
+
+
   Describe .compile_number
     It compile number
       for i in range(0, 100)

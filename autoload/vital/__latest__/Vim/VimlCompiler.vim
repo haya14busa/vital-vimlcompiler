@@ -159,7 +159,7 @@ function! s:VimlCompiler.compile(node) abort
   elseif a:node.type == s:NODE_SUBSCRIPT
     return self.compile_subscript(a:node)
   elseif a:node.type == s:NODE_SLICE
-  "   return self.compile_slice(a:node)
+    return self.compile_slice(a:node)
   " elseif a:node.type == s:NODE_DOT
   "   return self.compile_dot(a:node)
   " elseif a:node.type == s:NODE_CALL
@@ -361,6 +361,12 @@ endfunction
 
 function! s:VimlCompiler.compile_subscript(node)
   return printf('(%s[%s])', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_slice(node)
+  let r0 = a:node.rlist[0] is s:NIL ? '' : self.compile(a:node.rlist[0])
+  let r1 = a:node.rlist[1] is s:NIL ? '' : self.compile(a:node.rlist[1])
+  return printf('(%s[%s : %s])', self.compile(a:node.left), r0, r1)
 endfunction
 
 function! s:VimlCompiler.compile_number(node)
