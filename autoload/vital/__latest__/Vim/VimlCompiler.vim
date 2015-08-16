@@ -126,19 +126,19 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_nomatchci(a:node)
   elseif a:node.type == s:NODE_NOMATCHCS
     return self.compile_nomatchcs(a:node)
-  " elseif a:node.type == s:NODE_IS
-  "   return self.compile_is(a:node)
-  " elseif a:node.type == s:NODE_ISCI
-  "   return self.compile_isci(a:node)
-  " elseif a:node.type == s:NODE_ISCS
-  "   return self.compile_iscs(a:node)
-  " elseif a:node.type == s:NODE_ISNOT
-  "   return self.compile_isnot(a:node)
-  " elseif a:node.type == s:NODE_ISNOTCI
-  "   return self.compile_isnotci(a:node)
-  " elseif a:node.type == s:NODE_ISNOTCS
-  "   return self.compile_isnotcs(a:node)
-  " elseif a:node.type == s:NODE_ADD
+  elseif a:node.type == s:NODE_IS
+    return self.compile_is(a:node)
+  elseif a:node.type == s:NODE_ISCI
+    return self.compile_isci(a:node)
+  elseif a:node.type == s:NODE_ISCS
+    return self.compile_iscs(a:node)
+  elseif a:node.type == s:NODE_ISNOT
+    return self.compile_isnot(a:node)
+  elseif a:node.type == s:NODE_ISNOTCI
+    return self.compile_isnotci(a:node)
+  elseif a:node.type == s:NODE_ISNOTCS
+    return self.compile_isnotcs(a:node)
+  elseif a:node.type == s:NODE_ADD
   "   return self.compile_add(a:node)
   " elseif a:node.type == s:NODE_SUBTRACT
   "   return self.compile_subtract(a:node)
@@ -298,6 +298,31 @@ endfunction
 function! s:VimlCompiler.compile_nomatchcs(node)
   return printf('(%s !~# %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
+
+function! s:VimlCompiler.compile_is(node)
+  return printf('(%s is %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_isci(node)
+  return printf('(%s is? %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_iscs(node)
+  return printf('(%s is# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_isnot(node)
+  return printf('(%s isnot %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_isnotci(node)
+  return printf('(%s isnot? %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_isnotcs(node)
+  return printf('(%s isnot# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
 
 function! s:VimlCompiler.compile_number(node)
   return a:node.value

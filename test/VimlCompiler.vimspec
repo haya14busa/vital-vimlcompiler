@@ -223,6 +223,42 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_is
+    It compile is
+      Assert Equals(Recompile('true is false'), '(true is false)')
+    End
+  End
+
+  Describe .compile_isci
+    It compile is
+      Assert Equals(Recompile('true is? false'), '(true is? false)')
+    End
+  End
+
+  Describe .compile_iscs
+    It compile is
+      Assert Equals(Recompile('true is# false'), '(true is# false)')
+    End
+  End
+
+  Describe .compile_isnot
+    It compile isnot
+      Assert Equals(Recompile('true isnot false'), '(true isnot false)')
+    End
+  End
+
+  Describe .compile_isnotci
+    It compile isnotci
+      Assert Equals(Recompile('true isnot? false'), '(true isnot? false)')
+    End
+  End
+
+  Describe .compile_isnotcs
+    It compile isnotcs
+      Assert Equals(Recompile('true isnot# false'), '(true isnot# false)')
+    End
+  End
+
   Describe .compile_number
     It compile number
       for i in range(0, 100)
