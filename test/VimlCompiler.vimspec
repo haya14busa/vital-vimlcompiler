@@ -393,4 +393,25 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_option
+    It compile &option
+      Assert Equals(Recompile('&hlsearch'), '&hlsearch')
+      Assert Equals(eval(Recompile('&hlsearch')), &hlsearch)
+    End
+  End
+
+  Describe .compile_env
+    It compile $ENV
+      Assert Equals(Recompile('$MYVIMRC'), '$MYVIMRC')
+      Assert Equals(eval(Recompile('$MYVIMRC')), $MYVIMRC)
+    End
+  End
+
+  Describe .compile_reg
+    It compile @r
+      Assert Equals(Recompile('@a'), '@a')
+      Assert Equals(eval(Recompile('@a')), @a)
+    End
+  End
+
 End
