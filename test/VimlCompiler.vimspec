@@ -187,6 +187,42 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_match
+    It compile match
+      Assert Equals(Recompile('true =~ false'), '(true =~ false)')
+    End
+  End
+
+  Describe .compile_matchci
+    It compile matchci
+      Assert Equals(Recompile('true =~? false'), '(true =~? false)')
+    End
+  End
+
+  Describe .compile_matchcs
+    It compile matchcs
+      Assert Equals(Recompile('true =~# false'), '(true =~# false)')
+    End
+  End
+
+  Describe .compile_nomatch
+    It compile nomatch
+      Assert Equals(Recompile('true !~ false'), '(true !~ false)')
+    End
+  End
+
+  Describe .compile_nomatchci
+    It compile nomatchci
+      Assert Equals(Recompile('true !~? false'), '(true !~? false)')
+    End
+  End
+
+  Describe .compile_nomatchcs
+    It compile nomatchcs
+      Assert Equals(Recompile('true !~# false'), '(true !~# false)')
+    End
+  End
+
   Describe .compile_number
     It compile number
       for i in range(0, 100)

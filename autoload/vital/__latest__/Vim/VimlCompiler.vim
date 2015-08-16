@@ -114,18 +114,18 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_sequalci(a:node)
   elseif a:node.type == s:NODE_SEQUALCS
     return self.compile_sequalcs(a:node)
-  " elseif a:node.type == s:NODE_MATCH
-  "   return self.compile_match(a:node)
-  " elseif a:node.type == s:NODE_MATCHCI
-  "   return self.compile_matchci(a:node)
-  " elseif a:node.type == s:NODE_MATCHCS
-  "   return self.compile_matchcs(a:node)
-  " elseif a:node.type == s:NODE_NOMATCH
-  "   return self.compile_nomatch(a:node)
-  " elseif a:node.type == s:NODE_NOMATCHCI
-  "   return self.compile_nomatchci(a:node)
-  " elseif a:node.type == s:NODE_NOMATCHCS
-  "   return self.compile_nomatchcs(a:node)
+  elseif a:node.type == s:NODE_MATCH
+    return self.compile_match(a:node)
+  elseif a:node.type == s:NODE_MATCHCI
+    return self.compile_matchci(a:node)
+  elseif a:node.type == s:NODE_MATCHCS
+    return self.compile_matchcs(a:node)
+  elseif a:node.type == s:NODE_NOMATCH
+    return self.compile_nomatch(a:node)
+  elseif a:node.type == s:NODE_NOMATCHCI
+    return self.compile_nomatchci(a:node)
+  elseif a:node.type == s:NODE_NOMATCHCS
+    return self.compile_nomatchcs(a:node)
   " elseif a:node.type == s:NODE_IS
   "   return self.compile_is(a:node)
   " elseif a:node.type == s:NODE_ISCI
@@ -273,6 +273,30 @@ endfunction
 
 function! s:VimlCompiler.compile_sequalcs(node)
   return printf('(%s <=# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_match(node)
+  return printf('(%s =~ %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_matchci(node)
+  return printf('(%s =~? %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_matchcs(node)
+  return printf('(%s =~# %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_nomatch(node)
+  return printf('(%s !~ %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_nomatchci(node)
+  return printf('(%s !~? %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_nomatchcs(node)
+  return printf('(%s !~# %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
 function! s:VimlCompiler.compile_number(node)
