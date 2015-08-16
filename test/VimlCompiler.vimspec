@@ -23,8 +23,12 @@ Describe VimlCompiler
   End
 
   Describe .compile_ternary
-    It compile ternay
+    It compile ternary
       Assert Equals(Recompile('cond ? true : false'), '(cond ? true : false)')
+    End
+
+    It compile nested ternary
+      Assert Equals(Recompile('cond ? true : (cond2 ? true2 : false2)'), '(cond ? true : (cond2 ? true2 : false2))')
     End
   End
 
