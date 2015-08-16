@@ -76,8 +76,8 @@ function! s:VimlCompiler.compile(node) abort
     return self.compile_ternary(a:node)
   elseif a:node.type == s:NODE_OR
     return self.compile_or(a:node)
-  " elseif a:node.type == s:NODE_AND
-  "   return self.compile_and(a:node)
+  elseif a:node.type == s:NODE_AND
+    return self.compile_and(a:node)
   " elseif a:node.type == s:NODE_EQUAL
   "   return self.compile_equal(a:node)
   " elseif a:node.type == s:NODE_EQUALCI
@@ -197,6 +197,10 @@ endfunction
 
 function! s:VimlCompiler.compile_or(node)
   return printf('(%s || %s)', self.compile(a:node.left), self.compile(a:node.right))
+endfunction
+
+function! s:VimlCompiler.compile_and(node)
+  return printf('(%s && %s)', self.compile(a:node.left), self.compile(a:node.right))
 endfunction
 
 function! s:VimlCompiler.compile_number(node)
