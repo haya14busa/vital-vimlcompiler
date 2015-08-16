@@ -322,10 +322,26 @@ Describe VimlCompiler
     End
   End
 
+  Describe .compile_subscript
+    It compile [index]
+      Assert Equals(Recompile('x[1]'), '(x[1])')
+      Assert Equals(eval(Recompile('[0, 1, 2][1]')), 1)
+    End
+  End
+
   Describe .compile_number
     It compile number
       for i in range(0, 100)
         Assert Equals(Recompile(string(i)), string(i))
+      endfor
+    End
+  End
+
+  Describe .compile_list
+    It compile list
+      Assert Equals(Recompile('[1, 2, 3]'), '([1, 2, 3])')
+      for i in range(0, 10)
+        Assert Equals(eval(Recompile(string(range(i)))), range(i))
       endfor
     End
   End
