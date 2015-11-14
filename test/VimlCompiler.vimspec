@@ -348,7 +348,7 @@ Describe VimlCompiler
 
   Describe .compile_dot
     It compile .
-      Assert Equals(Recompile('x.y'), '(x.y)')
+      Assert Equals(Recompile('x.y'), 'x.y')
     End
   End
 
